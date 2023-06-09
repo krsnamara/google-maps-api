@@ -9,11 +9,11 @@ function Main() {
       <Routes>
         <Route
           exact
-          path="/"
+          path="/hello"
           element={<Home />}
         />
         <Route
-          path="/map"
+          path="/right"
           element={<MapAPI />}
         />
         <Route

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+// import { useMemo } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import "./Marker.css";
 // useJsApiLoader is a hook that loads the Google Maps JavaScript API in the background.
@@ -20,12 +20,12 @@ export default function MapAPI() {
 }
 
 function Map() {
-  const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+  // const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
 
   return (
     <GoogleMap
       zoom={10}
-      center={center}
+      center={{ lat: 44, lng: -80 }}
       mapContainerClassName="map-container"
     >
       <Marker position={{ lat: 44, lng: -80 }} />
