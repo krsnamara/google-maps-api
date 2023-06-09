@@ -3,7 +3,7 @@ import {
   GoogleMapsProvider,
   useGoogleMap,
 } from "@ubilabs/google-maps-react-hooks";
-import "./Marker.css";
+import "./Markers.css";
 
 const mapOptions = {
   zoom: 12,
@@ -43,8 +43,13 @@ function Location() {
   }, [map]);
 
   useEffect(() => {
+    if (!map || !markerRef.current) return;
+    if (isNaN(lat) || isNaN(lng)) return;
+    markerRef.current.setPosition({ lat, lng });
     console.log(lat, lng);
   }, [lat, lng, map]);
+
+  if (!map) return null; // Render nothing until the map is available
 
   return (
     <div className="lat-lng">
