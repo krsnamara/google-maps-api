@@ -1,34 +1,65 @@
-// import { useMemo } from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { useEffect, useRef, useState } from "react";
+import {
+  GoogleMapsProvider,
+  useGoogleMap,
+} from "@ubilabs/google-maps-react-hooks";
 import "./Marker.css";
-// useJsApiLoader is a hook that loads the Google Maps JavaScript API in the background.
-// useLoadScript is a hook that loads the Google Maps JavaScript API in the background.
-// Marker is a component that renders a Google Maps marker.
-// useMemo is a hook that memorizes the result of a function call. It is used to avoid unnecessary re-renders.
 
-// can you use this to make a map of the world and then have the user click on the country they want to go to?
+const mapOptions = {
+  zoom: 12,
+  center: {
+    lat: 52.520008,
+    lng: 13.404954,
+  },
+};
 
-// https://developers.google.com/maps/documentation/javascript/examples/map-simple
-
-export default function MapAPI() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  });
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
-}
-
-function Map() {
-  // const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+export default function Makers() {
+  const [mapContainer, setMapContainer] = useState(null);
 
   return (
-    <GoogleMap
-      zoom={10}
-      center={{ lat: 44, lng: -80 }}
-      mapContainerClassName="map-container"
+    <GoogleMapsProvider
+      googleMapsAPIKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+      options={mapOptions}
+      mapContainer={mapContainer}
     >
-      <Marker position={{ lat: 44, lng: -80 }} />
-    </GoogleMap>
+      <div
+        ref={(node) => setMapContainer(node)}
+        style={{ width: "100%", height: "100vh" }}
+      />
+      <Location />
+    </GoogleMapsProvider>
+  );
+}
+
+function Location() {
+  const [lat, setLat] = useState(52.520008);
+  const [lng, setLng] = useState(13.404954);
+  const { map } = useGoogleMap();
+  const markerRef = useRef();
+
+  useEffect(() => {
+    if (!map || markerRef.current) return;
+    markerRef.current = new window.google.maps.Marker({ map });
+  }, [map]);
+
+  useEffect(() => {
+    console.log(lat, lng);
+  }, [lat, lng, map]);
+
+  return (
+    <div className="lat-lng">
+      <input
+        type="number"
+        value={lat}
+        onChange={(event) => setLat(parseFloat(event.target.value))}
+        step={0.01}
+      />
+      <input
+        type="number"
+        value={lng}
+        onChange={(event) => setLng(parseFloat(event.target.value))}
+        step={0.01}
+      />
+    </div>
   );
 }

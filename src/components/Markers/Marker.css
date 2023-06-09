@@ -1,12 +1,22 @@
-.mapDiv {
+.makerMap {
   height: 800px;
   width: 100%;
-  position: relative;
-  margin: 0;
-  padding: 0;
 }
 
 .map-container {
   width: 100%;
   height: 60vh;
+}
+
+.lat-lng {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.lat-lng input {
+  margin: 0px 0.5rem;
+  padding: 0.5rem;
 }

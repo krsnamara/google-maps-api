@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import MapAPI from "./MapAPI/MapAPI";
-import Marker from "./Markers/Marker";
+// import Marker from "./Markers/Marker";
 
 function Main() {
   return (
@@ -10,15 +10,15 @@ function Main() {
         <Route
           exact
           path="/hello"
-          element={<Home />}
-        />
-        <Route
-          path="/right"
           element={<MapAPI />}
         />
-        <Route
-          path="/map"
+        {/* <Route
+          path="/markers"
           element={<Marker />}
+        /> */}
+        <Route
+          path="/right"
+          element={<Home />}
         />
       </Routes>
     </main>
